@@ -1,10 +1,7 @@
 import { combineReducers } from "redux"
-import { mapCenterReducer } from "./store/map/map.reduser"
-import { photoReducer } from "./store/photo/photo.reduser"
-import { iconReducer } from "./store/icon/icon.reduser"
+import { stepReducer } from "./store/step/step.reducer"
+// import { formReducer } from "./store/step/step.reducer"
 
 export default combineReducers({
-  mapCenter: mapCenterReducer,
-  photo: photoReducer,
-  icon: iconReducer,
+  step: stepReducer,
 })

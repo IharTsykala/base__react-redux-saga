@@ -1,28 +1,36 @@
 import React from "react"
 import "./App.scss"
 // import Header from "./Components/Header/Header"
-import MainPage from "./Pages/MainPage/MainPage"
+import FormPage from "./Pages/FormPage/FormPage"
 // import Footer from "./Components/Footer/Footer"
 import { Provider } from "react-redux"
 import { createStore, applyMiddleware } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
 import rootReducer from "./Redux/index"
+import createSagaMiddleware from "redux-saga"
+import formSaga from "./Redux/store/form/form.saga"
+import Navbar from "./Components/Navbar/Navbar"
+import Footer from "./Components/Footer/Footer"
+
+const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools({ trace: true, traceLimit: 25 })(applyMiddleware())
+  composeWithDevTools({ trace: true, traceLimit: 25 })(
+    applyMiddleware(sagaMiddleware)
+  )
 )
+
+sagaMiddleware.run(formSaga)
 
 const App: React.FC = () => (
   <Provider store={store}>
-    <div className={"wrapper1600"}>
-      <div className={"wrapper1440"}>
-        {/* <Header /> */}
-        <main className={"main"}>
-          <MainPage />
-        </main>
-        {/* <Footer /> */}
-      </div>
+    <div className={"wrapper"}>
+      <Navbar />
+      <main className={"main"}>
+        <FormPage />
+      </main>
+      <Footer />
     </div>
   </Provider>
 )
